@@ -75,8 +75,12 @@ A2:2A:47:00:00:00,
 A2:2B:00:00:00:00,
 A2:2C:00:00:00:00"""
 
-# print(hexstuff)
 
-subprocess.run(
+print("")
+print(hexstuff)
+print("")
+
+# uncomment for KDE plasma systems to copy to clipboard
+# subprocess.run(
     ["qdbus6", "org.kde.klipper", "/klipper", "setClipboardContents", hexstuff]
 )
