@@ -12,7 +12,9 @@ Requires python (and matplotlib) installed
 4. input filament type (PLA+ default)
 5. will print out NFC commands
  
-<video src="Tutorial/2025-01-26 10-58-44.webm" width="800px">
+ 
+see <a href="Tutorial/2025-01-26 10-58-44.webm">Tutorial/2025-01-26 10-58-44.webm</a> for a video guide
+
  
 ## To write:
 
