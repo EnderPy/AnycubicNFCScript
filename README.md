@@ -2,6 +2,8 @@
 
 Python script to automatically create a set of NFC commands to colour filament and brand for ACE Pro 
 
+Requires python (and matplotlib) installed
+
 ## To use:
 
 1. run python file `python ./main.py`
@@ -10,6 +12,8 @@ Python script to automatically create a set of NFC commands to colour filament a
 4. input filament type (PLA+ default)
 5. will print out NFC commands
  
+ 
+see Tutorial/2025-01-25 10-58-44.mkv for a video guide
 
  
 ## To write:
