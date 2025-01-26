@@ -10,6 +10,9 @@ Python script to automatically create a set of NFC commands to colour filament a
 4. input filament type (PLA+ default)
 5. will print out NFC commands
  
+
+![](Tutorial/2025-01-26 10-58-44.mkv) 
+ 
 ## To write:
 
 1. open relevant NFC writing tool (I used NFC tools pro)

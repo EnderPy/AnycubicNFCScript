@@ -82,5 +82,5 @@ print("")
 
 # uncomment for KDE plasma systems to copy to clipboard
 # subprocess.run(
-    ["qdbus6", "org.kde.klipper", "/klipper", "setClipboardContents", hexstuff]
-)
+#    ["qdbus6", "org.kde.klipper", "/klipper", "setClipboardContents", hexstuff]
+# )
