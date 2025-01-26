@@ -11,16 +11,38 @@ Python script to automatically create a set of NFC commands to colour filament a
 5. will print out NFC commands
  
 
-![](Tutorial/2025-01-26 10-58-44.mkv) 
  
 ## To write:
 
 1. open relevant NFC writing tool (I used NFC tools pro)
 2. go to other -> advanced NFC commands
+
+
+<img src="Tutorial/Screenshot_20250126_110040_NFC%20Tools.jpg" width="200px"/>
+
 3. Paste into box
+<img src="Tutorial/Screenshot_20250126_110055_NFC Tools.jpg" width="200px"/>
+
 4. place NFC tag under phone and confirm it detects it
+
+<img src="Tutorial/20250126_110130.jpg" height="300px"/>
+
+<img src="Tutorial/20250126_110137.jpg" height="300px"/>
+
 5. send command
-6. note: it may not show this option if there is too much text, if so you can cut half of the commands out AFTER a comma (,) and paste it as a seperate command
+
+ <img src="Tutorial/Screenshot_20250126_110143_NFC Tools.jpg" width="200px"/>
+
+ * note: it may not show this option if there is too much text, if so you can cut half of the commands out AFTER a comma (,) and paste it as a seperate command
+
+<img src="Tutorial/Screenshot_20250126_110112_NFC Tools.jpg" width="200px"/>
+<img src="Tutorial/Screenshot_20250126_110118_NFC Tools.jpg" width="200px"/>
+
+after:
+
+<img src="Tutorial/Screenshot_20250126_110156_NFC Tools.jpg" width="200px"/>
+<img src="Tutorial/Screenshot_20250126_110206_NFC Tools.jpg" width="200px"/>
+
 7. attach to filament roll and confirm it works!
 
 
