@@ -13,7 +13,7 @@ Requires python (and matplotlib) installed
 5. will print out NFC commands
  
  
-see Tutorial/2025-01-25 10-58-44.mkv for a video guide
+see <a href="./Tutorial/2025-01-25 10-58-44.mkv">Tutorial/2025-01-25 10-58-44.mkv</a> for a video guide
 
  
 ## To write:
@@ -39,7 +39,7 @@ see Tutorial/2025-01-25 10-58-44.mkv for a video guide
 
  * note: it may not show this option if there is too much text, if so you can cut half of the commands out AFTER a comma (,) and paste it as a seperate command
 
-<img src="Tutorial/Screenshot_20250126_110112_NFC Tools.jpg" width="200px"/>
+<img src="Tutorial/Screenshot_20250126_110105_NFC Tools.jpg" width="200px"/>
 <img src="Tutorial/Screenshot_20250126_110118_NFC Tools.jpg" width="200px"/>
 
 after:
