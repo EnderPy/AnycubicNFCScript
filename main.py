@@ -1,28 +1,71 @@
 #!/usr/bin/env python
 import subprocess
+import sys
 import matplotlib as mt
+import readline
 
-RGB_ORIGINAL = input(f"Colour name(leave blank for HEX code):\n> ")
-RGB_ORIGINAL = RGB_ORIGINAL.lower().replace(" ", "")
-try:
-    RGB_ORIGINAL = mt.colors.cnames[RGB_ORIGINAL].replace("#", "")
-except:
-    RGB_ORIGINAL = ""
-
-if RGB_ORIGINAL == "":
-    RGB_ORIGINAL = input(f"RGB hex code (000000):\n> ")
-    if RGB_ORIGINAL == "":
-        RGB_ORIGINAL = "000000"
-# print(f"#{RGB_ORIGINAL}")
-
-r, g, b = (RGB_ORIGINAL[i : i + 2] for i in range(0, len(RGB_ORIGINAL), 2))
-r, g, b = [a.upper() for a in [r, g, b]]
-print(f"\033[48:2::{int(r,16)}:{int(g,16)}:{int(b,16)}m  {RGB_ORIGINAL}\033[49m")
+clipboard = False
+print_output = True
+has_colour_data = False
+has_material_data = False
 
 
-MATERIAL = input(f"Material type (length<=4) (PLA+)\n>")
-if MATERIAL == "":
-    MATERIAL = "PLA+"
+def hex_to_rgb(RGB_ORIGINAL: str) -> tuple:
+    r, g, b = (RGB_ORIGINAL[i : i + 2] for i in range(0, len(RGB_ORIGINAL), 2))
+    r, g, b = [a.upper() for a in [r, g, b]]
+    return r, g, b
+
+
+def name_to_rgb(name: str) -> tuple:
+    RGB_ORIGINAL = mt.colors.cnames[name].replace("#", "")
+    return hex_to_rgb(RGB_ORIGINAL)
+
+
+for index, item in enumerate(sys.argv):
+    if item == "--copy":
+        clipboard = True
+    if item == "--no-print":
+        print_output = False
+    if item == "--hex":
+        has_colour_data = True
+        r, g, b = hex_to_rgb(sys.argv[index + 1])
+    if item == "--colour" or item == "-color":
+        has_colour_data = True
+        r, g, b = name_to_rgb(sys.argv[index + 1])
+    if item == "--material":
+        has_material_data = True
+        MATERIAL = sys.argv[index + 1]
+
+
+if not has_colour_data:
+    while True:
+        RGB_ORIGINAL = input(f"Colour name(leave blank for HEX code):\n> ")
+        if RGB_ORIGINAL == "":
+            break
+        try:
+            r, g, b = name_to_rgb(RGB_ORIGINAL)
+            break
+        except:
+            continue
+    while True:
+        RGB_ORIGINAL = input(f"RGB hex code (eg #123123):\n> ")
+        RGB_ORIGINAL = RGB_ORIGINAL.removeprefix("#")
+        if RGB_ORIGINAL == "":
+            continue
+        if len(RGB_ORIGINAL) != 6:
+            print("nont the right length (6)")
+            RGB_ORIGINAL == ""
+            continue
+        r, g, b = hex_to_rgb(RGB_ORIGINAL)
+        break
+
+
+if print_output:
+    print(f"\033[48:2::{int(r,16)}:{int(g,16)}:{int(b,16)}m  {RGB_ORIGINAL}\033[49m")
+if not has_material_data:
+    MATERIAL = input(f"Material type (length<=4) (PLA+)\n>")
+    if MATERIAL == "":
+        MATERIAL = "PLA+"
 M = list(MATERIAL)
 # for m in M:
 #     m.encode("utf-8").hex().upper()
@@ -75,12 +118,13 @@ A2:2A:47:00:00:00,
 A2:2B:00:00:00:00,
 A2:2C:00:00:00:00"""
 
+if print_output:
+    print("")
+    print(hexstuff)
+    print("")
 
-print("")
-print(hexstuff)
-print("")
-
-# uncomment for KDE plasma systems to copy to clipboard
-# subprocess.run(
-#    ["qdbus6", "org.kde.klipper", "/klipper", "setClipboardContents", hexstuff]
-# )
+# copy to clipboard on KDE
+if clipboard:
+    subprocess.run(
+        ["qdbus6", "org.kde.klipper", "/klipper", "setClipboardContents", hexstuff]
+    )
