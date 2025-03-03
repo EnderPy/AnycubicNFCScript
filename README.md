@@ -19,10 +19,15 @@ Requires python (and matplotlib) installed
 You can use the following parameters for quickly generate the NFC commands.
 
 `--copy`: Copy output to clipboard
+
 `--no-print`: Do not show output on screen
+
 `--hex`: Color hex (e.g. #123456, $12345678)
+
 `--color`: Color name
+
 `--material`: Material (e.g. PLA)
+
  
 ## To write:
 
