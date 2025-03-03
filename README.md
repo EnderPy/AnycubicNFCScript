@@ -7,12 +7,26 @@ Requires python (and matplotlib) installed
 ## To use:
 
 1. run python file `python ./main.py`
-2. input colour name or enter for hex code
+2. input colour name or enter to skip to enter hex code
 3. it will ask for hex code if you didnt enter a colour, or didnt find the colour (Black #000000 default)
 4. input filament type (PLA+ default)
 5. will print out NFC commands
  
 [2025-01-26 10-58-44.webm](https://github.com/user-attachments/assets/3aeab5d0-44d0-4d1e-abec-82b22cc423ee)
+
+### Parameters:
+
+You can use the following parameters for quickly generate the NFC commands.
+
+`--copy`: Copy output to clipboard
+
+`--no-print`: Do not show output on screen
+
+`--hex`: Color hex (e.g. #123456, $12345678)
+
+`--color`: Color name
+
+`--material`: Material (e.g. PLA)
 
  
 ## To write:

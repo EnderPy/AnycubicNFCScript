@@ -2,7 +2,7 @@
 import subprocess
 import sys
 import matplotlib as mt
-import readline
+import pyperclip
 
 clipboard = False
 print_output = True
@@ -10,15 +10,19 @@ has_colour_data = False
 has_material_data = False
 
 
-def hex_to_rgb(RGB_ORIGINAL: str) -> tuple:
-    r, g, b = (RGB_ORIGINAL[i : i + 2] for i in range(0, len(RGB_ORIGINAL), 2))
-    r, g, b = [a.upper() for a in [r, g, b]]
-    return r, g, b
+def hex_to_rgba(RGB_ORIGINAL: str) -> tuple:
+    if len(RGB_ORIGINAL) == 8:
+        t, r, g, b = (RGB_ORIGINAL[i : i + 2] for i in range(0, 8, 2))
+    else:
+        t = "FF"
+        r, g, b = (RGB_ORIGINAL[i : i + 2] for i in range(0, 6, 2))
+    r, g, b, t = [a.upper() for a in [r, g, b, t]]
+    return t, r, g, b
 
 
 def name_to_rgb(name: str) -> tuple:
     RGB_ORIGINAL = mt.colors.cnames[name].replace("#", "")
-    return hex_to_rgb(RGB_ORIGINAL)
+    return hex_to_rgba(RGB_ORIGINAL)
 
 
 for index, item in enumerate(sys.argv):
@@ -28,10 +32,11 @@ for index, item in enumerate(sys.argv):
         print_output = False
     if item == "--hex":
         has_colour_data = True
-        r, g, b = hex_to_rgb(sys.argv[index + 1])
+        RGB_ORIGINAL = sys.argv[index + 1].lstrip("#")
+        t, r, g, b = hex_to_rgba(RGB_ORIGINAL)
     if item == "--colour" or item == "-color":
         has_colour_data = True
-        r, g, b = name_to_rgb(sys.argv[index + 1])
+        t, r, g, b = name_to_rgb(sys.argv[index + 1])
     if item == "--material":
         has_material_data = True
         MATERIAL = sys.argv[index + 1]
@@ -39,24 +44,23 @@ for index, item in enumerate(sys.argv):
 
 if not has_colour_data:
     while True:
-        RGB_ORIGINAL = input(f"Colour name(leave blank for HEX code):\n> ")
+        RGB_ORIGINAL = input("Colour name (leave blank for HEX code):\n> ")
         if RGB_ORIGINAL == "":
             break
         try:
-            r, g, b = name_to_rgb(RGB_ORIGINAL)
+            t, r, g, b = name_to_rgb(RGB_ORIGINAL)
             break
         except:
             continue
     while True:
-        RGB_ORIGINAL = input(f"RGB hex code (eg #123123):\n> ")
-        RGB_ORIGINAL = RGB_ORIGINAL.removeprefix("#")
+        RGB_ORIGINAL = input("RGB hex code (with optional transparency, e.g., #66000000 or #123123):\n> ")
+        RGB_ORIGINAL = RGB_ORIGINAL.lstrip("#")
         if RGB_ORIGINAL == "":
             continue
-        if len(RGB_ORIGINAL) != 6:
-            print("nont the right length (6)")
-            RGB_ORIGINAL == ""
+        if len(RGB_ORIGINAL) not in [6, 8]:
+            print("Not the right length (6 or 8)")
             continue
-        r, g, b = hex_to_rgb(RGB_ORIGINAL)
+        t, r, g, b = hex_to_rgba(RGB_ORIGINAL)
         break
 
 
@@ -92,7 +96,7 @@ A2:10:{M[4]}:{M[5]}:{M[6]}:{M[7]},
 A2:11:{M[8]}:{M[9]}:{M[10]}:{M[11]},
 A2:12:{M[12]}:{M[13]}:{M[14]}:{M[15]},
 A2:13:{M[16]}:{M[17]}:{M[18]}:{M[19]},
-A2:14:FF:{b}:{g}:{r},
+A2:14:{t}:{b}:{g}:{r},
 A2:15:00:00:00:00,
 A2:16:00:00:00:00,
 A2:17:32:00:64:00,
@@ -118,13 +122,10 @@ A2:2A:47:00:00:00,
 A2:2B:00:00:00:00,
 A2:2C:00:00:00:00"""
 
-if print_output:
-    print("")
-    print(hexstuff)
-    print("")
 
-# copy to clipboard on KDE
+if print_output:
+    print("\n" + hexstuff + "\n")
+
+
 if clipboard:
-    subprocess.run(
-        ["qdbus6", "org.kde.klipper", "/klipper", "setClipboardContents", hexstuff]
-    )
+    pyperclip.copy(hexstuff)
