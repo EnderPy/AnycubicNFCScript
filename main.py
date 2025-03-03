@@ -2,7 +2,7 @@
 import subprocess
 import sys
 import matplotlib as mt
-import readline
+import pyperclip
 
 clipboard = False
 print_output = True
@@ -119,12 +119,7 @@ A2:2B:00:00:00:00,
 A2:2C:00:00:00:00"""
 
 if print_output:
-    print("")
-    print(hexstuff)
-    print("")
+    print("\n" + hexstuff + "\n")
 
-# copy to clipboard on KDE
 if clipboard:
-    subprocess.run(
-        ["qdbus6", "org.kde.klipper", "/klipper", "setClipboardContents", hexstuff]
-    )
+    pyperclip.copy(hexstuff)
